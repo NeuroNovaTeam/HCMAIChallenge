@@ -1,0 +1,75 @@
+// ChatArea component styles with SCSS improvements
+
+// Variables
+$chat-padding: 1rem;
+$chat-padding-mobile: 0.5rem;
+$scrollbar-width: 6px;
+$scrollbar-radius: 3px;
+$mobile-breakpoint: 768px;
+$mobile-height-adjustment: 60px;
+
+// Mixins
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin scrollbar-styling {
+  &::-webkit-scrollbar {
+    width: $scrollbar-width;
+    
+    &-track {
+      background: transparent;
+    }
+    
+    &-thumb {
+      background: var(--scrollbar-thumb);
+      border-radius: $scrollbar-radius;
+      
+      &:hover {
+        background: var(--scrollbar-thumb-hover);
+      }
+    }
+  }
+}
+
+@mixin mobile-chat-area {
+  @media (max-width: $mobile-breakpoint) {
+    height: calc(100vh - #{$mobile-height-adjustment});
+    
+    .message-list {
+      padding: $chat-padding-mobile;
+    }
+    
+    .chat-input-container {
+      padding: $chat-padding-mobile;
+    }
+  }
+}
+
+// Chat area container
+.chat-area {
+  flex: 1;
+  @include flex-column;
+  height: 100vh;
+  background: var(--chat-bg);
+  position: relative;
+  
+  @include mobile-chat-area;
+  
+  // Message list
+  .message-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: $chat-padding;
+    scroll-behavior: smooth;
+    @include scrollbar-styling;
+  }
+  
+  // Chat input container
+  .chat-input-container {
+    border-top: 1px solid var(--border-color);
+    background: var(--chat-bg);
+    padding: $chat-padding;
+  }
+} 

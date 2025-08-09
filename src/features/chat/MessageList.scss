@@ -1,0 +1,97 @@
+// MessageList component styles with SCSS improvements
+
+// Variables
+$message-list-padding: 1rem;
+$message-list-padding-mobile: 0.5rem;
+$message-list-gap: 1rem;
+$message-list-gap-mobile: 0.5rem;
+$empty-message-max-width: 400px;
+$empty-message-padding: 2rem;
+$empty-message-padding-mobile: 1rem;
+$empty-icon-size: 3rem;
+$empty-icon-size-mobile: 2.5rem;
+$empty-icon-opacity: 0.7;
+$mobile-breakpoint: 768px;
+
+// Spacing variables
+$spacing-xs: 0.5rem;
+$spacing-sm: 0.75rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+
+// Mixins
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin mobile-message-list {
+  @media (max-width: $mobile-breakpoint) {
+    padding: $message-list-padding-mobile;
+    gap: $message-list-gap-mobile;
+    
+    .empty-message {
+      padding: $empty-message-padding-mobile;
+    }
+    
+    .empty-icon {
+      font-size: $empty-icon-size-mobile;
+    }
+  }
+}
+
+// Message list container
+.message-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: $message-list-padding;
+  @include flex-column;
+  gap: $message-list-gap;
+  
+  &.empty {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  @include mobile-message-list;
+}
+
+// Empty message
+.empty-message {
+  max-width: $empty-message-max-width;
+  padding: $empty-message-padding;
+}
+
+// Empty icon
+.empty-icon {
+  font-size: $empty-icon-size;
+  margin-bottom: $spacing-md;
+  opacity: $empty-icon-opacity;
+}
+
+// Empty message heading
+.empty-message h3 {
+  margin-bottom: $spacing-xs;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+// Empty message paragraph
+.empty-message p {
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+// Message spacing
+.message-list > *:not(.empty-message) {
+  margin-bottom: $spacing-xs;
+} 

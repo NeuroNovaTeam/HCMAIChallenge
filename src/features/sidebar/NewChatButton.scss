@@ -1,0 +1,121 @@
+// NewChatButton component styles with SCSS improvements
+
+// Variables
+$container-padding: 1rem;
+$container-padding-mobile: 0.75rem;
+$button-padding: 0.75rem 1rem;
+$button-padding-collapsed: 0.75rem;
+$button-padding-mobile: 0.625rem 0.875rem;
+$border-radius: 8px;
+$transition-duration: 0.2s;
+$button-gap: 0.5rem;
+$font-size: 0.95rem;
+$font-size-mobile: 0.9rem;
+$icon-size: 20px;
+$icon-size-mobile: 18px;
+$mobile-breakpoint: 768px;
+
+// Spacing variables
+$spacing-xs: 0.5rem;
+$spacing-sm: 0.625rem;
+$spacing-md: 0.75rem;
+$spacing-lg: 0.875rem;
+$spacing-xl: 1rem;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin transition($properties...) {
+  $transitions: ();
+  @each $prop in $properties {
+    $transitions: append($transitions, $prop $transition-duration ease, comma);
+  }
+  transition: $transitions;
+}
+
+@mixin button-hover {
+  background: var(--primary-color-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+@mixin button-active {
+  transform: translateY(0);
+}
+
+@mixin mobile-new-chat {
+  @media (max-width: $mobile-breakpoint) {
+    padding: $container-padding-mobile;
+    
+    .new-chat-button {
+      padding: $button-padding-mobile;
+      font-size: $font-size-mobile;
+    }
+    
+    .new-chat-icon {
+      width: $icon-size-mobile;
+      height: $icon-size-mobile;
+    }
+  }
+}
+
+// New chat container
+.new-chat-container {
+  padding: $container-padding;
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+  
+  @include mobile-new-chat;
+}
+
+// New chat button
+.new-chat-button {
+  width: 100%;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: $button-padding;
+  border-radius: $border-radius;
+  cursor: pointer;
+  @include transition(all);
+  @include flex-center;
+  gap: $button-gap;
+  font-size: $font-size;
+  font-weight: 600;
+  
+  &:hover {
+    @include button-hover;
+  }
+  
+  &:active {
+    @include button-active;
+  }
+}
+
+// New chat icon
+.new-chat-icon {
+  width: $icon-size;
+  height: $icon-size;
+  flex-shrink: 0;
+}
+
+// New chat text
+.new-chat-text {
+  white-space: nowrap;
+}
+
+// Collapsed state
+.sidebar.collapsed {
+  .new-chat-button {
+    padding: $button-padding-collapsed;
+    justify-content: center;
+  }
+  
+  .new-chat-text {
+    display: none;
+  }
+} 

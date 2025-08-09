@@ -1,0 +1,203 @@
+// ConversationItem component styles with SCSS improvements
+
+// Variables
+$item-padding: 12px 16px;
+$item-padding-collapsed: 12px;
+$item-padding-mobile: 16px;
+$border-radius: 8px;
+$transition-duration: 0.2s;
+$margin-bottom: 4px;
+$margin-bottom-mobile: 8px;
+$icon-size: 20px;
+$icon-margin: 12px;
+$title-font-size: 14px;
+$title-font-size-mobile: 16px;
+$time-font-size: 11px;
+$preview-font-size: 12px;
+$preview-font-size-mobile: 14px;
+$preview-margin-bottom: 6px;
+$meta-gap: 8px;
+$badge-padding: 2px 6px;
+$badge-radius: 10px;
+$delete-button-padding: 4px;
+$delete-button-radius: 4px;
+$delete-icon-size: 16px;
+$mobile-breakpoint: 768px;
+
+// Spacing variables
+$spacing-xs: 4px;
+$spacing-sm: 6px;
+$spacing-md: 8px;
+$spacing-lg: 12px;
+$spacing-xl: 16px;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+@mixin transition($properties...) {
+  $transitions: ();
+  @each $prop in $properties {
+    $transitions: append($transitions, $prop $transition-duration ease, comma);
+  }
+  transition: $transitions;
+}
+
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin mobile-conversation-item {
+  @media (max-width: $mobile-breakpoint) {
+    padding: $item-padding-mobile;
+    margin-bottom: $margin-bottom-mobile;
+    
+    .conversation-title {
+      font-size: $title-font-size-mobile;
+    }
+    
+    .conversation-preview {
+      font-size: $preview-font-size-mobile;
+    }
+  }
+}
+
+// Conversation item container
+.conversation-item {
+  @include flex-center;
+  padding: $item-padding;
+  border-radius: $border-radius;
+  cursor: pointer;
+  @include transition(all);
+  margin-bottom: $margin-bottom;
+  border: 1px solid transparent;
+  
+  &:hover {
+    background-color: var(--hover-bg);
+    border-color: var(--border-color);
+    
+    .delete-button {
+      opacity: 1;
+    }
+  }
+  
+  &.active {
+    background-color: var(--active-bg);
+    border-color: var(--primary-color);
+  }
+  
+  &.collapsed {
+    justify-content: center;
+    padding: $item-padding-collapsed;
+    
+    .conversation-icon {
+      margin-right: 0;
+    }
+  }
+  
+  @include mobile-conversation-item;
+}
+
+// Conversation content
+.conversation-content {
+  @include flex-center;
+  flex: 1;
+  min-width: 0;
+}
+
+// Conversation icon
+.conversation-icon {
+  font-size: $icon-size;
+  margin-right: $icon-margin;
+  flex-shrink: 0;
+}
+
+// Conversation details
+.conversation-details {
+  flex: 1;
+  min-width: 0;
+}
+
+// Conversation header
+.conversation-header {
+  @include flex-between;
+  margin-bottom: $spacing-xs;
+}
+
+// Conversation title
+.conversation-title {
+  margin: 0;
+  font-size: $title-font-size;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+  @include text-truncate;
+  flex: 1;
+  margin-right: $spacing-md;
+}
+
+// Conversation time
+.conversation-time {
+  font-size: $time-font-size;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+// Conversation preview
+.conversation-preview {
+  margin: 0 0 $preview-margin-bottom 0;
+  font-size: $preview-font-size;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  @include text-truncate;
+}
+
+// Conversation meta
+.conversation-meta {
+  @include flex-center;
+  gap: $meta-gap;
+}
+
+// Message count badge
+.message-count {
+  font-size: $time-font-size;
+  color: var(--text-tertiary);
+  background-color: var(--badge-bg);
+  padding: $badge-padding;
+  border-radius: $badge-radius;
+}
+
+// Delete button
+.delete-button {
+  background: none;
+  border: none;
+  padding: $delete-button-padding;
+  border-radius: $delete-button-radius;
+  cursor: pointer;
+  color: var(--text-secondary);
+  opacity: 0;
+  @include transition(all);
+  flex-shrink: 0;
+  
+  &:hover {
+    background-color: var(--danger-bg);
+    color: var(--danger-color);
+  }
+}
+
+// Delete icon
+.delete-icon {
+  width: $delete-icon-size;
+  height: $delete-icon-size;
+} 

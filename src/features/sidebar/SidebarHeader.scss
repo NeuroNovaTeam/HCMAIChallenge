@@ -1,0 +1,119 @@
+// SidebarHeader component styles with SCSS improvements
+
+// Variables
+$header-padding: 1rem;
+$header-padding-mobile: 0.75rem;
+$header-margin-bottom: 1rem;
+$app-title-size: 1.5rem;
+$app-title-size-mobile: 1.25rem;
+$collapse-button-padding: 0.5rem;
+$collapse-button-padding-mobile: 0.375rem;
+$collapse-button-radius: 6px;
+$collapse-icon-size: 20px;
+$collapse-icon-size-mobile: 18px;
+$transition-duration: 0.2s;
+$mobile-breakpoint: 768px;
+
+// Spacing variables
+$spacing-xs: 0.375rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 0.75rem;
+$spacing-lg: 1rem;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin transition($properties...) {
+  $transitions: ();
+  @each $prop in $properties {
+    $transitions: append($transitions, $prop $transition-duration ease, comma);
+  }
+  transition: $transitions;
+}
+
+@mixin mobile-header {
+  @media (max-width: $mobile-breakpoint) {
+    padding: $header-padding-mobile;
+    
+    .app-title {
+      font-size: $app-title-size-mobile;
+    }
+    
+    .collapse-button {
+      padding: $collapse-button-padding-mobile;
+    }
+    
+    .collapse-icon {
+      width: $collapse-icon-size-mobile;
+      height: $collapse-icon-size-mobile;
+    }
+  }
+}
+
+// Sidebar header
+.sidebar-header {
+  padding: $header-padding;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--sidebar-bg);
+  flex-shrink: 0;
+  
+  @include mobile-header;
+}
+
+// Header content
+.header-content {
+  @include flex-between;
+  margin-bottom: $header-margin-bottom;
+}
+
+// App title
+.app-title {
+  margin: 0;
+  font-size: $app-title-size;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+// Collapse button
+.collapse-button {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: $collapse-button-padding;
+  border-radius: $collapse-button-radius;
+  @include transition(all);
+  @include flex-center;
+  
+  &:hover {
+    background: var(--message-hover-bg);
+    color: var(--text-primary);
+  }
+}
+
+// Collapse icon
+.collapse-icon {
+  width: $collapse-icon-size;
+  height: $collapse-icon-size;
+  @include transition(transform);
+  
+  &.collapsed {
+    transform: rotate(180deg);
+  }
+}
+
+// Header actions
+.header-actions {
+  @include flex-center;
+  gap: $spacing-sm;
+} 
