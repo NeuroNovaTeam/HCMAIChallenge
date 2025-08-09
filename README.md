@@ -10,7 +10,7 @@ This is a **UI-only** application that provides a ChatGPT-like interface for AI 
 
 - **Frontend Framework**: React 18+ with TypeScript
 - **State Management**: MobX
-- **Styling**: Bootstrap 5 + Custom CSS
+- **Styling**: Bootstrap 5 + Custom SCSS
 - **Build Tool**: Vite
 - **Package Manager**: yarn
 - **Testing**: Jest + React Testing Library
@@ -69,7 +69,7 @@ src/
 ├── types/              # TypeScript type definitions
 ├── utils/              # Utility functions
 ├── hooks/              # Custom React hooks
-└── styles/             # Global styles and theme variables
+└── styles/             # Global styles and theme variables (SCSS)
 ```
 
 ## 🎨 Design Specifications
@@ -84,6 +84,7 @@ src/
 - **Collapsible sidebar** with smooth animations
 - **Mobile-first responsive design**
 - **Bootstrap 5** for consistent styling
+- **SCSS** for advanced styling capabilities and maintainable CSS
 
 ### Components
 - **Message bubbles** with proper spacing
@@ -161,6 +162,7 @@ yarn test:watch
 - **TypeScript interfaces** for all props and state
 - **Custom hooks** for reusable logic
 - **Feature-based** organization
+- **SCSS modules** for component-specific styling
 
 ### Performance Considerations
 - **React.memo** for expensive components
@@ -184,6 +186,13 @@ yarn test:watch
 - **PascalCase** for components and classes
 - **TypeScript strict mode** enabled
 - **ESLint** and **Prettier** configuration
+- **SCSS** for styling with proper nesting and variables
+
+### Styling Guidelines
+- **Use SCSS instead of CSS** for all component styles
+- **Leverage SCSS features** like variables, mixins, and nesting
+- **Component-specific SCSS files** for modular styling
+- **Global SCSS variables** for consistent theming
 
 ### Testing Strategy
 - **Unit tests** for utilities and hooks
