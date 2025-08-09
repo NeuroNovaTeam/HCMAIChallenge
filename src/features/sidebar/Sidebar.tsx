@@ -16,7 +16,7 @@ export const Sidebar: React.FC = observer(() => {
       {/* Mobile hamburger button */}
       <button
         className="btn btn-link d-md-none mobile-menu-btn"
-        onClick={sidebarStore.toggleMobileSidebar}
+        onClick={sidebarStore.openMobileSidebar}
         title="Toggle menu"
       >
         <i className="bi bi-list fs-4"></i>

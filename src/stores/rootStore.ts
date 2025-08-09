@@ -13,7 +13,7 @@ export class RootStore implements IRootStore {
 
   constructor() {
     this.conversationStore = new ConversationStore(this)
-    this.themeStore = new ThemeStore(this)
+    this.themeStore = new ThemeStore()
     this.sidebarStore = new SidebarStore(this)
     this.exportStore = new ExportStore(this)
 
