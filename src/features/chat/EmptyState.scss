@@ -1,0 +1,189 @@
+// EmptyState component styles with SCSS improvements
+
+// Variables
+$empty-state-padding: 2rem;
+$empty-state-padding-mobile: 1rem;
+$empty-state-max-width: 500px;
+$icon-size: 4rem;
+$icon-size-mobile: 3rem;
+$title-size: 2.5rem;
+$title-size-mobile: 2rem;
+$description-size: 1.1rem;
+$description-size-mobile: 1rem;
+$button-padding: 1rem 2rem;
+$button-padding-mobile: 0.875rem 1.75rem;
+$button-font-size: 1.1rem;
+$button-font-size-mobile: 1rem;
+$border-radius: 12px;
+$transition-duration: 0.2s;
+$mobile-breakpoint: 768px;
+$small-mobile-breakpoint: 480px;
+$mobile-height-adjustment: 60px;
+
+// Spacing variables
+$spacing-xs: 0.5rem;
+$spacing-sm: 0.75rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$spacing-xxl: 2.5rem;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin transition($properties...) {
+  $transitions: ();
+  @each $prop in $properties {
+    $transitions: append($transitions, $prop $transition-duration ease, comma);
+  }
+  transition: $transitions;
+}
+
+@mixin button-hover {
+  background: var(--primary-color-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+@mixin button-active {
+  transform: translateY(0);
+}
+
+@mixin mobile-empty-state {
+  @media (max-width: $mobile-breakpoint) {
+    padding: $empty-state-padding-mobile;
+    height: calc(100vh - #{$mobile-height-adjustment});
+    
+    .empty-state-icon {
+      font-size: $icon-size-mobile;
+      margin-bottom: $spacing-md;
+    }
+    
+    .empty-state-title {
+      font-size: $title-size-mobile;
+      margin-bottom: $spacing-sm;
+    }
+    
+    .empty-state-description {
+      font-size: $description-size-mobile;
+      margin-bottom: $spacing-lg;
+    }
+    
+    .start-chat-button {
+      padding: $button-padding-mobile;
+      font-size: $button-font-size-mobile;
+    }
+    
+    .empty-state-features {
+      gap: $spacing-lg;
+    }
+    
+    .feature-item {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+@mixin small-mobile-features {
+  @media (max-width: $small-mobile-breakpoint) {
+    .empty-state-features {
+      flex-direction: column;
+      gap: $spacing-md;
+    }
+  }
+}
+
+// Empty state container
+.empty-state {
+  @include flex-center;
+  height: 100vh;
+  background: var(--chat-bg);
+  padding: $empty-state-padding;
+  
+  @include mobile-empty-state;
+  @include small-mobile-features;
+}
+
+// Empty state content
+.empty-state-content {
+  text-align: center;
+  max-width: $empty-state-max-width;
+}
+
+// Empty state icon
+.empty-state-icon {
+  font-size: $icon-size;
+  margin-bottom: $spacing-lg;
+  opacity: 0.8;
+}
+
+// Empty state title
+.empty-state-title {
+  font-size: $title-size;
+  font-weight: 700;
+  margin-bottom: $spacing-md;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+// Empty state description
+.empty-state-description {
+  font-size: $description-size;
+  color: var(--text-secondary);
+  margin-bottom: $spacing-xl;
+  line-height: 1.6;
+}
+
+// Empty state actions
+.empty-state-actions {
+  margin-bottom: $spacing-xxl;
+}
+
+// Start chat button
+.start-chat-button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: $button-padding;
+  font-size: $button-font-size;
+  font-weight: 600;
+  border-radius: $border-radius;
+  cursor: pointer;
+  @include transition(all);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  
+  &:hover {
+    @include button-hover;
+  }
+  
+  &:active {
+    @include button-active;
+  }
+}
+
+// Empty state features
+.empty-state-features {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-xl;
+  flex-wrap: wrap;
+}
+
+// Feature item
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+// Feature icon
+.feature-icon {
+  font-size: 1.2rem;
+  opacity: 0.8;
+} 

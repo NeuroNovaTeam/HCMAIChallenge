@@ -1,0 +1,122 @@
+// Layout styles with SCSS improvements
+
+// Variables
+$sidebar-width: 300px;
+$sidebar-collapsed-width: 60px;
+$sidebar-mobile-width: 280px;
+$mobile-breakpoint: 768px;
+$small-mobile-breakpoint: 480px;
+$transition-duration: 0.3s;
+$z-index-overlay: 1000;
+$z-index-sidebar: 1001;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin transition($properties...) {
+  $transitions: ();
+  @each $prop in $properties {
+    $transitions: append($transitions, $prop $transition-duration ease, comma);
+  }
+  transition: $transitions;
+}
+
+@mixin mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: $z-index-overlay;
+  display: none;
+}
+
+@mixin sidebar-base {
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border-color);
+  @include flex-column;
+  @include transition(transform);
+  z-index: $z-index-sidebar;
+}
+
+@mixin responsive-sidebar {
+  @media (max-width: $mobile-breakpoint) {
+    width: $sidebar-mobile-width;
+    
+    &.collapsed {
+      width: $sidebar-collapsed-width;
+    }
+  }
+  
+  @media (max-width: $small-mobile-breakpoint) {
+    width: 100%;
+    
+    &.collapsed {
+      width: 100%;
+    }
+  }
+}
+
+// Main layout
+.main-layout {
+  display: flex;
+  height: 100vh;
+  background: var(--chat-bg);
+}
+
+// Mobile overlay
+.mobile-overlay {
+  @include mobile-overlay;
+  
+  @media (max-width: $mobile-breakpoint) {
+    display: block;
+  }
+}
+
+// Sidebar
+.sidebar {
+  width: $sidebar-width;
+  @include sidebar-base;
+  @include transition(transform);
+  
+  &.collapsed {
+    width: $sidebar-collapsed-width;
+  }
+  
+  &.mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    
+    &.open {
+      transform: translateX(0);
+    }
+  }
+  
+  @include responsive-sidebar;
+}
+
+// Chat area
+.chat-area {
+  flex: 1;
+  @include flex-column;
+  height: 100vh;
+  background: var(--chat-bg);
+  position: relative;
+  
+  @media (max-width: $mobile-breakpoint) {
+    height: calc(100vh - 60px);
+  }
+} 

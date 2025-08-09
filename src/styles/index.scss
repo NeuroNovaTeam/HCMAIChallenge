@@ -1,0 +1,232 @@
+/* Global styles and SCSS variables */
+
+// Color variables
+$primary-color: #007bff;
+$primary-color-hover: #0056b3;
+$primary-color-alpha: rgba(0, 123, 255, 0.1);
+
+// Light theme colors
+$light-theme: (
+  chat-bg: #ffffff,
+  sidebar-bg: #f8f9fa,
+  input-bg: #ffffff,
+  text-primary: #212529,
+  text-secondary: #6c757d,
+  text-placeholder: #adb5bd,
+  border-color: #dee2e6,
+  message-hover-bg: #f8f9fa,
+  user-message-bg: #e3f2fd,
+  assistant-message-bg: #f8f9fa,
+  avatar-bg: #e9ecef,
+  code-inline-bg: #f1f3f4,
+  code-inline-text: #d73a49,
+  blockquote-bg: #f8f9fa,
+  link-color: #007bff,
+  table-header-bg: #f8f9fa,
+  table-cell-bg: #ffffff,
+  scrollbar-thumb: #c1c1c1,
+  scrollbar-thumb-hover: #a8a8a8,
+  disabled-bg: #6c757d
+);
+
+// Dark theme colors
+$dark-theme: (
+  chat-bg: #1a1a1a,
+  sidebar-bg: #2d2d2d,
+  input-bg: #2d2d2d,
+  text-primary: #ffffff,
+  text-secondary: #adb5bd,
+  text-placeholder: #6c757d,
+  border-color: #404040,
+  message-hover-bg: #2a2a2a,
+  user-message-bg: #1e3a5f,
+  assistant-message-bg: #2d2d2d,
+  avatar-bg: #404040,
+  code-inline-bg: #2d2d2d,
+  code-inline-text: #ff6b6b,
+  blockquote-bg: #2d2d2d,
+  link-color: #66b3ff,
+  table-header-bg: #2d2d2d,
+  table-cell-bg: #1a1a1a,
+  scrollbar-thumb: #555555,
+  scrollbar-thumb-hover: #777777,
+  disabled-bg: #6c757d
+);
+
+// Mixins
+@mixin theme-colors($theme) {
+  @each $key, $value in $theme {
+    --#{$key}: #{$value};
+  }
+}
+
+@mixin transition($properties...) {
+  $transitions: ();
+  @each $prop in $properties {
+    $transitions: append($transitions, $prop 0.3s ease, comma);
+  }
+  transition: $transitions;
+}
+
+@mixin focus-outline {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+@mixin button-reset {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+@mixin link-reset {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+@mixin fade-in-animation {
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+// CSS Custom Properties
+:root {
+  @include theme-colors($light-theme);
+  --primary-color: #{$primary-color};
+  --primary-color-hover: #{$primary-color-hover};
+  --primary-color-alpha: #{$primary-color-alpha};
+}
+
+[data-theme="dark"] {
+  @include theme-colors($dark-theme);
+  --primary-color: #0d6efd;
+  --primary-color-hover: #0b5ed7;
+  --primary-color-alpha: rgba(13, 110, 253, 0.2);
+}
+
+// Global styles
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--chat-bg);
+  color: var(--text-primary);
+  @include transition(background-color, color);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+// Utility classes
+.text-muted {
+  color: var(--text-secondary) !important;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  
+  &:hover,
+  &:focus {
+    background-color: #0d8a6b;
+    border-color: #0d8a6b;
+  }
+}
+
+.btn-outline-secondary {
+  color: var(--text-secondary);
+  border-color: var(--border-color);
+  
+  &:hover {
+    background-color: var(--hover-color);
+    color: var(--text-color);
+  }
+}
+
+// Form controls
+.form-control {
+  background-color: var(--background-color);
+  border-color: var(--border-color);
+  color: var(--text-color);
+  
+  &:focus {
+    background-color: var(--background-color);
+    border-color: var(--primary-color);
+    color: var(--text-color);
+    box-shadow: 0 0 0 0.2rem rgba(16, 163, 127, 0.25);
+  }
+}
+
+// Bootstrap overrides
+.bg-light {
+  background-color: var(--surface-color) !important;
+}
+
+.border {
+  border-color: var(--border-color) !important;
+}
+
+// Scrollbar styling
+::-webkit-scrollbar {
+  width: 8px;
+  
+  &-track {
+    background: transparent;
+  }
+  
+  &-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 4px;
+    
+    &:hover {
+      background: var(--scrollbar-thumb-hover);
+    }
+  }
+}
+
+// Focus styles
+*:focus {
+  @include focus-outline;
+}
+
+// Button reset
+button {
+  @include button-reset;
+}
+
+// Link reset
+a {
+  @include link-reset;
+}
+
+// Loading animations
+@include fade-in-animation;
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+// Responsive utilities
+@media (max-width: 768px) {
+  :root {
+    --spacing-lg: 1rem;
+    --spacing-xl: 1.5rem;
+  }
+} 

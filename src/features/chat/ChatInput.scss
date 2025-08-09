@@ -1,0 +1,186 @@
+// ChatInput component styles with SCSS improvements
+
+// Variables
+$input-padding: 1rem;
+$input-padding-mobile: 0.75rem;
+$input-wrapper-padding: 0.75rem;
+$input-wrapper-padding-mobile: 0.5rem;
+$input-gap: 0.75rem;
+$input-gap-mobile: 0.5rem;
+$border-radius: 12px;
+$button-border-radius: 8px;
+$transition-duration: 0.2s;
+$focus-shadow-size: 3px;
+$button-size: 40px;
+$button-size-mobile: 36px;
+$icon-size: 20px;
+$icon-size-mobile: 18px;
+$spinner-size: 16px;
+$spinner-border: 2px;
+$mobile-breakpoint: 768px;
+$textarea-min-height: 24px;
+$textarea-max-height: 120px;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin transition($properties...) {
+  $transitions: ();
+  @each $prop in $properties {
+    $transitions: append($transitions, $prop $transition-duration ease, comma);
+  }
+  transition: $transitions;
+}
+
+@mixin focus-styles {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 #{$focus-shadow-size} var(--primary-color-alpha);
+}
+
+@mixin button-hover {
+  background: var(--primary-color-hover);
+  transform: translateY(-1px);
+}
+
+@mixin button-active {
+  transform: translateY(0);
+}
+
+@mixin button-disabled {
+  background: var(--disabled-bg);
+  cursor: not-allowed;
+  transform: none;
+}
+
+@mixin spinner-animation {
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+}
+
+@mixin mobile-input {
+  @media (max-width: $mobile-breakpoint) {
+    padding: $input-padding-mobile;
+    
+    .input-wrapper {
+      padding: $input-wrapper-padding-mobile;
+      gap: $input-gap-mobile;
+    }
+    
+    .send-button {
+      width: $button-size-mobile;
+      height: $button-size-mobile;
+    }
+    
+    .send-icon {
+      width: $icon-size-mobile;
+      height: $icon-size-mobile;
+    }
+  }
+}
+
+// Chat input container
+.chat-input-container {
+  border-top: 1px solid var(--border-color);
+  background: var(--chat-bg);
+  padding: $input-padding;
+  
+  @include mobile-input;
+}
+
+// Chat input form
+.chat-input-form {
+  width: 100%;
+}
+
+// Input wrapper
+.input-wrapper {
+  display: flex;
+  gap: $input-gap;
+  align-items: flex-end;
+  background: var(--input-bg);
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius;
+  padding: $input-wrapper-padding;
+  @include transition(border-color, box-shadow);
+  
+  &:focus-within {
+    @include focus-styles;
+  }
+}
+
+// Chat textarea
+.chat-textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  resize: none;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+  min-height: $textarea-min-height;
+  max-height: $textarea-max-height;
+  overflow-y: auto;
+  
+  &::placeholder {
+    color: var(--text-placeholder);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// Send button
+.send-button {
+  flex-shrink: 0;
+  width: $button-size;
+  height: $button-size;
+  border: none;
+  border-radius: $button-border-radius;
+  background: var(--primary-color);
+  color: white;
+  @include flex-center;
+  cursor: pointer;
+  @include transition(all);
+  padding: 0;
+  
+  &:hover:not(:disabled) {
+    @include button-hover;
+  }
+  
+  &:active:not(:disabled) {
+    @include button-active;
+  }
+  
+  &:disabled {
+    @include button-disabled;
+  }
+}
+
+// Send icon
+.send-icon {
+  width: $icon-size;
+  height: $icon-size;
+}
+
+// Spinner for loading state
+.spinner {
+  width: $spinner-size;
+  height: $spinner-size;
+  border: $spinner-border solid transparent;
+  border-top: $spinner-border solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+// Include spinner animation
+@include spinner-animation; 
