@@ -727,3 +727,9 @@ __pycache__/
 
 
 #custom ignore
+
+# Build outputs and caches
+dist/
+.vite/
+.tsbuildinfo
+node_modules/.cache/

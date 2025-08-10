@@ -21,6 +21,10 @@
     "noImplicitAny": false,
     "noFallthroughCasesInSwitch": true,
 
+    /* Performance */
+    "incremental": true,
+    "tsBuildInfoFile": ".tsbuildinfo",
+
     /* Path mapping */
     "baseUrl": ".",
     "paths": {
