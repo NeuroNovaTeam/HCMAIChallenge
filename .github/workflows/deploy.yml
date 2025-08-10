@@ -2,9 +2,9 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, build-page ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, master, build-page ]
   workflow_dispatch:
 
 permissions:
@@ -72,7 +72,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/build-page'
     
     steps:
     - name: Deploy to GitHub Pages

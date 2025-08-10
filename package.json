@@ -4,16 +4,16 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "clean": "rimraf dist",
     "start": "yarn dev",
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "yarn run clean && tsc && vite build",
     "build:prod": "NODE_ENV=production tsc && vite build",
     "preview": "vite preview",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
-    "deploy": "yarn build:prod && touch dist/.nojekyll",
-    "clean": "rm -rf dist"
+    "deploy": "yarn build:prod && touch dist/.nojekyll"
   },
   "dependencies": {
     "bootstrap": "^5.3.2",
