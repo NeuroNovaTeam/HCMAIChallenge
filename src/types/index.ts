@@ -76,6 +76,6 @@ export interface ISidebarStore {
 export interface IExportStore {
   isExporting: boolean
   isImporting: boolean
-  exportConversations: (conversations: Conversation[]) => Promise<void>
+  exportAllConversations: (conversations: Conversation[]) => Promise<void>
   importConversations: (file: File) => Promise<Conversation[]>
 } 

@@ -9,7 +9,7 @@ export class ExportStore {
     makeAutoObservable(this)
   }
 
-  exportConversations = async (conversations: Conversation[]) => {
+  exportAllConversations = async (conversations: Conversation[]) => {
     this.isExporting = true
     
     try {

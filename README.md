@@ -149,6 +149,38 @@ yarn test
 yarn test:watch
 ```
 
+## 🚀 Deployment
+
+### GitHub Pages (Automatic)
+
+This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
+
+#### Setup Steps:
+1. **Enable GitHub Pages** in your repository settings:
+   - Go to Settings → Pages
+   - Set Source to "GitHub Actions"
+
+2. **Push to main branch** - The workflow will automatically:
+   - Build the project
+   - Deploy to GitHub Pages
+   - Make it available at: `https://yourusername.github.io/AIChallenge/`
+
+#### Manual Deployment:
+```bash
+yarn deploy
+```
+
+#### Build for Production:
+```bash
+yarn build:prod
+```
+
+### Local Production Build:
+```bash
+yarn build:prod
+yarn preview
+```
+
 ## 📋 Implementation Notes
 
 ### State Management
