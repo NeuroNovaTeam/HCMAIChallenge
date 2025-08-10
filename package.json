@@ -8,7 +8,7 @@
     "start": "yarn dev",
     "dev": "vite",
     "build": "yarn run clean && tsc && vite build",
-    "build:prod": "NODE_ENV=production tsc && vite build",
+    "build:prod": "cross-env NODE_ENV=production tsc && vite build",
     "preview": "vite preview",
     "test": "jest",
     "test:coverage": "jest --coverage",
